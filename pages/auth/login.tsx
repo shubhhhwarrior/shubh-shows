@@ -9,7 +9,7 @@ import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { FaEnvelope, FaLock, FaGoogle } from 'react-icons/fa';
+import { FaEnvelope, FaLock } from 'react-icons/fa';
 
 export default function Login() {
   const router = useRouter();
@@ -182,20 +182,8 @@ export default function Login() {
               )}
             </motion.button>
           </div>
-
-          <div className="mt-6">
-            <div className="relative">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-gray-300"></div>
-              </div>
-              <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white text-gray-500">Or continue with</span>
-              </div>
-            </div>
-            </div>
-          </div>
         </motion.form>
       </motion.div>
     </div>
   );
-} 
+}
