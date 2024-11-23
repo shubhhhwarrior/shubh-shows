@@ -1,6 +1,6 @@
 /**
  * @copyright (c) 2024 - Present
- * @author 
+ * @author github.com/KunalG932
  * @license MIT
  */
 
@@ -270,31 +270,115 @@ export default function BookTickets() {
                   onChange={handleChange}
                   required
                   className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500"
-                >
-                  <option value={1}>1 ticket</option>
+                > 
+                  {[1, 2, 3, 4, 5].map(num => (
+                    <option key={num} value={num}>
+                      {num} {num === 1 ? 'ticket' : 'tickets'}
+                    </option>
+                  ))}
                 </select>
               </div>
             ) : (
               <>
-                {/* Add comedian-specific form fields */}
+                <div>
+                  <label htmlFor="comedianType" className="block text-sm font-medium text-gray-700">
+                    Type of Comedy
+                  </label>
+                  <select
+                    id="comedianType"
+                    name="comedianType"
+                    value={formData.comedianType}
+                    onChange={handleChange}
+                    required
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500"
+                  >
+                    <option value="">Select type</option>
+                    <option value="standup">Stand-up Comedy</option>
+                    <option value="improv">Improv Comedy</option>
+                    <option value="sketch">Sketch Comedy</option>
+                    <option value="musical">Musical Comedy</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label htmlFor="speciality" className="block text-sm font-medium text-gray-700">
+                    Speciality/Style
+                  </label>
+                  <input
+                    type="text"
+                    id="speciality"
+                    name="speciality"
+                    value={formData.speciality}
+                    onChange={handleChange}
+                    required
+                    placeholder="e.g., Observational comedy, Political satire"
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="experience" className="block text-sm font-medium text-gray-700">
+                    Years of Experience
+                  </label>
+                  <input
+                    type="text"
+                    id="experience"
+                    name="experience"
+                    value={formData.experience}
+                    onChange={handleChange}
+                    required
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="bio" className="block text-sm font-medium text-gray-700">
+                    Bio
+                  </label>
+                  <textarea
+                    id="bio"
+                    name="bio"
+                    value={formData.bio}
+                    onChange={handleChange}
+                    required
+                    rows={4}
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500"
+                    placeholder="Tell us about yourself and your comedy style..."
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="videoUrl" className="block text-sm font-medium text-gray-700">
+                    Demo Video URL
+                  </label>
+                  <input
+                    type="url"
+                    id="videoUrl"
+                    name="videoUrl"
+                    value={formData.videoUrl}
+                    onChange={handleChange}
+                    required
+                    placeholder="YouTube or Vimeo link to your performance"
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500"
+                  />
+                </div>
               </>
             )}
 
-            <div>
-              <button
-                type="submit"
-                disabled={isLoading}
-                className={`w-full flex justify-center px-4 py-2 text-white rounded-md ${
-                  isLoading ? 'bg-gray-400' : 'bg-purple-600 hover:bg-purple-700'
-                }`}
-              >
-                {isLoading ? 'Submitting...' : 'Submit'}
-              </button>
-            </div>
+            <button
+              type="submit"
+              disabled={isLoading || (bookingType === 'show' && venueStatus.isFull)}
+              className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 disabled:bg-purple-300"
+            >
+              {isLoading ? 'Processing...' : 
+                venueStatus.isFull && bookingType === 'show' ? 'Fully Booked' :
+                bookingType === 'show' ? 'Book Now' : 'Submit Application'}
+            </button>
           </form>
         </motion.div>
       </motion.main>
       <Footer />
     </div>
   );
-}
+} 
