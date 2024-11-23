@@ -1,6 +1,6 @@
 /**
  * @copyright (c) 2024 - Present
- * @author ...
+ * @author github.com/KunalG932
  * @license MIT
  */
 
@@ -22,8 +22,8 @@ export default function BookTickets() {
     fullName: '',
     email: session?.user?.email || '',
     phone: '',
-    // Number of tickets is fixed at 1
     numberOfTickets: 1,
+    // Comedian registration fields
     comedianType: '' as ComedianType,
     bio: '',
     speciality: '',
@@ -55,7 +55,7 @@ export default function BookTickets() {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
-      [name]: value,
+      [name]: value
     }));
   };
 
@@ -75,9 +75,9 @@ export default function BookTickets() {
       if (bookingType === 'joinAsComedian') {
         const res = await fetch('/api/comedians/register', {
           method: 'POST',
-          headers: {
+          headers: { 
             'Content-Type': 'application/json',
-            Accept: 'application/json',
+            'Accept': 'application/json'
           },
           body: JSON.stringify({
             username: formData.fullName,
@@ -90,9 +90,9 @@ export default function BookTickets() {
               speciality: formData.speciality,
               videoUrl: formData.videoUrl,
               experience: formData.experience,
-              status: 'pending',
-            },
-          }),
+              status: 'pending'
+            }
+          })
         });
 
         if (!res.ok) {
@@ -111,7 +111,7 @@ export default function BookTickets() {
             fullName: formData.fullName,
             email: session.user.email,
             phone: formData.phone,
-            numberOfTickets: 1, // Always 1 ticket
+            numberOfTickets: formData.numberOfTickets,
           }),
         });
 
@@ -129,6 +129,7 @@ export default function BookTickets() {
         ...prev,
         fullName: '',
         phone: '',
+        numberOfTickets: 1,
         comedianType: '' as ComedianType,
         bio: '',
         speciality: '',
@@ -146,13 +147,16 @@ export default function BookTickets() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-purple-700 to-purple-900 flex flex-col">
       <Navbar />
-      <motion.main
+      <motion.main 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
         className="flex-grow max-w-2xl mx-auto px-4 py-12"
       >
-        <motion.div whileHover={{ scale: 1.01 }} className="bg-white rounded-lg shadow-2xl p-8">
+        <motion.div 
+          whileHover={{ scale: 1.01 }}
+          className="bg-white rounded-lg shadow-2xl p-8"
+        >
           <div className="flex items-center space-x-4 mb-8">
             <div className="bg-purple-100 rounded-full p-3">
               {bookingType === 'show' ? '🎟️' : '🎤'}
@@ -193,6 +197,36 @@ export default function BookTickets() {
             </div>
           )}
 
+          <div className="mb-6">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              What would you like to do?
+            </label>
+            <div className="flex space-x-4">
+              <button
+                type="button"
+                onClick={() => setBookingType('show')}
+                className={px-4 py-2 rounded-md ${
+                  bookingType === 'show'
+                    ? 'bg-purple-600 text-white'
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                }}
+              >
+                Book Show Tickets
+              </button>
+              <button
+                type="button"
+                onClick={() => setBookingType('joinAsComedian')}
+                className={px-4 py-2 rounded-md ${
+                  bookingType === 'joinAsComedian'
+                    ? 'bg-purple-600 text-white'
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                }}
+              >
+                Join as Comedian
+              </button>
+            </div>
+          </div>
+
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
               <label htmlFor="fullName" className="block text-sm font-medium text-gray-700">
@@ -229,18 +263,106 @@ export default function BookTickets() {
                 <label htmlFor="numberOfTickets" className="block text-sm font-medium text-gray-700">
                   Number of Tickets
                 </label>
-                <input
-                  type="number"
+                <select
                   id="numberOfTickets"
                   name="numberOfTickets"
-                  value={1}
-                  readOnly
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500 bg-gray-100 cursor-not-allowed"
-                />
+                  value={formData.numberOfTickets}
+                  onChange={handleChange}
+                  required
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500"
+                > 
+                  {[1, 2, 3, 4, 5].map(num => (
+                    <option key={num} value={num}>
+                      {num} {num === 1 ? 'ticket' : 'tickets'}
+                    </option>
+                  ))}
+                </select>
               </div>
             ) : (
               <>
-                {/* Comedian-specific fields */}
+                <div>
+                  <label htmlFor="comedianType" className="block text-sm font-medium text-gray-700">
+                    Type of Comedy
+                  </label>
+                  <select
+                    id="comedianType"
+                    name="comedianType"
+                    value={formData.comedianType}
+                    onChange={handleChange}
+                    required
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500"
+                  >
+                    <option value="">Select type</option>
+                    <option value="standup">Stand-up Comedy</option>
+                    <option value="improv">Improv Comedy</option>
+                    <option value="sketch">Sketch Comedy</option>
+                    <option value="musical">Musical Comedy</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label htmlFor="speciality" className="block text-sm font-medium text-gray-700">
+                    Speciality/Style
+                  </label>
+                  <input
+                    type="text"
+                    id="speciality"
+                    name="speciality"
+                    value={formData.speciality}
+                    onChange={handleChange}
+                    required
+                    placeholder="e.g., Observational comedy, Political satire"
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="experience" className="block text-sm font-medium text-gray-700">
+                    Years of Experience
+                  </label>
+                  <input
+                    type="text"
+                    id="experience"
+                    name="experience"
+                    value={formData.experience}
+                    onChange={handleChange}
+                    required
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="bio" className="block text-sm font-medium text-gray-700">
+                    Bio
+                  </label>
+                  <textarea
+                    id="bio"
+                    name="bio"
+                    value={formData.bio}
+                    onChange={handleChange}
+                    required
+                    rows={4}
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500"
+                    placeholder="Tell us about yourself and your comedy style..."
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="videoUrl" className="block text-sm font-medium text-gray-700">
+                    Demo Video URL
+                  </label>
+                  <input
+                    type="url"
+                    id="videoUrl"
+                    name="videoUrl"
+                    value={formData.videoUrl}
+                    onChange={handleChange}
+                    required
+                    placeholder="YouTube or Vimeo link to your performance"
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500"
+                  />
+                </div>
               </>
             )}
 
