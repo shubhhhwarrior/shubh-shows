@@ -308,7 +308,6 @@ export default function BookTickets() {
                     name="bio"
                     value={formData.bio}
                     onChange={handleChange}
-                    required
                     className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500"
                   />
                 </div>
@@ -323,7 +322,6 @@ export default function BookTickets() {
                     name="speciality"
                     value={formData.speciality}
                     onChange={handleChange}
-                    required
                     className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500"
                   />
                 </div>
@@ -338,7 +336,6 @@ export default function BookTickets() {
                     name="videoUrl"
                     value={formData.videoUrl}
                     onChange={handleChange}
-                    required
                     className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500"
                   />
                 </div>
@@ -353,7 +350,6 @@ export default function BookTickets() {
                     name="experience"
                     value={formData.experience}
                     onChange={handleChange}
-                    required
                     min={0}
                     className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500"
                   />
