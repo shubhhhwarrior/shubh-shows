@@ -191,7 +191,7 @@ export default function Policies() {
                 </p>
                 <div className="mt-4 space-y-2 text-gray-700">
                   <p><strong>Business Name:</strong> The Humors Hub</p>
-                  <p><strong>Address:</strong> Hotel Harmony, Amreli, Gujarat, India</p>
+                  <p><strong>Address:</strong> Junagadh , Gujrat, India</p>
                   <p><strong>Email:</strong> <a href="mailto:shubhammvaghela999@gmail.com" className="text-purple-600 hover:text-purple-800">shubhammvaghela999@gmail.com</a></p>
                   <p><strong>WhatsApp:</strong> <a href="https://chat.whatsapp.com/JrExMaZiT6F2LmylOuU8NL" className="text-purple-600 hover:text-purple-800" target="_blank" rel="noopener noreferrer">Join our Community</a></p>
                 </div>
