@@ -29,6 +29,12 @@ export default function App({ Component, pageProps: { session, ...pageProps } }:
           pauseOnHover
           theme="light"
         />
+        {/* Add Policies Page Link */}
+        <footer style={{ textAlign: 'center', marginTop: '20px' }}>
+          <a href="/policies" style={{ textDecoration: 'none', color: '#0070f3' }}>
+            Policies
+          </a>
+        </footer>
       </SessionProvider>
     </ErrorBoundary>
   );
