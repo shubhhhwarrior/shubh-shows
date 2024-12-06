@@ -33,6 +33,11 @@ const linkStyle: CSSProperties = {
   textDecoration: 'none',
 };
 
+const linkHoverStyle: CSSProperties = {
+  ...linkStyle,
+  textDecoration: 'underline',
+};
+
 const buttonStyle: CSSProperties = {
   display: 'block',
   margin: '20px auto',
@@ -93,15 +98,7 @@ const Policies: React.FC = () => {
       </section>
 
       {/* Back button */}
-      <button
-        onClick={handleBackButtonClick}
-        style={{
-          ...buttonStyle,
-          ':hover': {
-            backgroundColor: '#6a0dad',
-          },
-        }}
-      >
+      <button onClick={handleBackButtonClick} style={buttonStyle}>
         Back to Sign Up
       </button>
     </div>
