@@ -58,7 +58,7 @@ const Policies: React.FC = () => {
 
   return (
     <div style={containerStyle}>
-      <h1 style={headingStyle}>Policies</h1>
+      // <h1 style={headingStyle}>Policies</h1>
 
       <section style={sectionStyle}>
         <h2 style={subHeadingStyle}>Terms and Conditions</h2>
