@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react';
 
 const Policies: React.FC = () => {
   return (
-    <div style={{ padding: "20px", fontFamily: "Arial, sans-serif", lineHeight: "1.6" }}>
+    <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif', lineHeight: '1.6' }}>
       <h1>Policies</h1>
 
       <section>
@@ -38,9 +38,11 @@ const Policies: React.FC = () => {
           <br />
           <strong>Email:</strong> shubhammvaghela999@gmail.com
           <br />
-          <strong>Phone:</strong> +91
+          <strong>Phone:</strong> +919033195151
         </p>
       </section>
     </div>
   );
 };
+
+export default Policies;
