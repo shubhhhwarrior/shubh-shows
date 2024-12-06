@@ -1,28 +1,41 @@
 import React, { CSSProperties } from 'react';
 
 const containerStyle: CSSProperties = {
-  padding: '20px',
+  padding: '30px',
   fontFamily: 'Arial, sans-serif',
   lineHeight: '1.6',
+  backgroundColor: '#f3e6ff', // Light purple background
+  color: '#4b0082', // Dark purple text
 };
 
 const headingStyle: CSSProperties = {
   textAlign: 'center',
-  color: '#333',
+  color: '#4b0082', // Dark purple heading
 };
 
 const subHeadingStyle: CSSProperties = {
   textAlign: 'left',
-  color: '#555',
+  color: '#6a0dad', // Medium purple subheadings
+  marginBottom: '10px',
 };
 
 const sectionStyle: CSSProperties = {
-  marginBottom: '20px',
+  marginBottom: '30px',
 };
 
 const textStyle: CSSProperties = {
   textAlign: 'left',
-  color: '#000',
+  color: '#4b0082', // Dark purple text
+};
+
+const linkStyle: CSSProperties = {
+  color: '#1e90ff', // Blue color for links
+  textDecoration: 'none',
+};
+
+const linkHoverStyle: CSSProperties = {
+  ...linkStyle,
+  textDecoration: 'underline',
 };
 
 const Policies: React.FC = () => {
@@ -33,21 +46,21 @@ const Policies: React.FC = () => {
       <section style={sectionStyle}>
         <h2 style={subHeadingStyle}>Terms and Conditions</h2>
         <p style={textStyle}>
-          Please refer to our detailed <a href="https://docs.google.com/document/d/1wYq6CULlAtBdYrcjEVygQ3uYOplqU-kT1wrxguUKHcI/edit" target="_blank" rel="noopener noreferrer">Terms and Conditions</a>.
+          Please refer to our detailed <a href="https://docs.google.com/document/d/1wYq6CULlAtBdYrcjEVygQ3uYOplqU-kT1wrxguUKHcI/edit" target="_blank" rel="noopener noreferrer" style={linkStyle}>Terms and Conditions</a>.
         </p>
       </section>
 
       <section style={sectionStyle}>
         <h2 style={subHeadingStyle}>Privacy Policy</h2>
         <p style={textStyle}>
-          You can review our <a href="https://docs.google.com/document/d/1MpaLoEbx5-cmTB3qfbDadhjsuNCkEA2j13H2ZGx3PAk/edit" target="_blank" rel="noopener noreferrer">Privacy Policy</a> to understand how we handle your data.
+          You can review our <a href="https://docs.google.com/document/d/1MpaLoEbx5-cmTB3qfbDadhjsuNCkEA2j13H2ZGx3PAk/edit" target="_blank" rel="noopener noreferrer" style={linkStyle}>Privacy Policy</a> to understand how we handle your data.
         </p>
       </section>
 
       <section style={sectionStyle}>
         <h2 style={subHeadingStyle}>Refund Policy</h2>
         <p style={textStyle}>
-          Please check our <a href="https://docs.google.com/document/d/1zOrg11NPYSMCxa3KwkOnfPxKRkllzXBdocEQsQN10TM/edit" target="_blank" rel="noopener noreferrer">Refund Policy</a> for details regarding refunds and cancellations.
+          Please check our <a href="https://docs.google.com/document/d/1zOrg11NPYSMCxa3KwkOnfPxKRkllzXBdocEQsQN10TM/edit" target="_blank" rel="noopener noreferrer" style={linkStyle}>Refund Policy</a> for details regarding refunds and cancellations.
         </p>
       </section>
 
@@ -61,9 +74,9 @@ const Policies: React.FC = () => {
           <br />
           <strong>Address:</strong> Junagadh, Gujarat, India, Pin Code: 362001
           <br />
-          <strong>Email:</strong> shubhammvaghela999@gmail.com
+          <strong>Email:</strong> <a href="mailto:shubhammvaghela999@gmail.com" style={linkStyle}>shubhammvaghela999@gmail.com</a>
           <br />
-          <strong>Phone:</strong> +91 90331 95151
+          <strong>Phone:</strong> <a href="tel:+919033195151" style={linkStyle}>+91 90331 95151</a>
         </p>
       </section>
     </div>
