@@ -44,6 +44,3 @@ const Policies: React.FC = () => {
     </div>
   );
 };
-
-export default Policies;
-Policies.tsx
