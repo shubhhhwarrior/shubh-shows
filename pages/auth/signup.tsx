@@ -1,9 +1,3 @@
-/**
- * @copyright (c) 2024 - Present
- * @author github.com/KunalG932
- * @license MIT
- */
-
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
@@ -14,6 +8,7 @@ export default function SignUp() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  const [isTermsAccepted, setIsTermsAccepted] = useState(false); // State for terms checkbox
   const [formData, setFormData] = useState({
     username: '',
     email: '',
@@ -23,9 +18,9 @@ export default function SignUp() {
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     }));
   };
 
@@ -36,6 +31,12 @@ export default function SignUp() {
 
     if (formData.password !== formData.confirmPassword) {
       setError('Passwords do not match');
+      setIsLoading(false);
+      return;
+    }
+
+    if (!isTermsAccepted) {
+      setError('You must accept the Terms and Conditions to proceed');
       setIsLoading(false);
       return;
     }
@@ -206,15 +207,20 @@ export default function SignUp() {
             </div>
           </div>
 
-          <div className="flex items-center justify-between">
-            <div className="text-sm">
-              <Link
-                href="/auth/login"
-                className="font-medium text-purple-600 hover:text-purple-500"
-              >
-                Already have an account? Sign in
+          <div className="flex items-center space-x-3">
+            <input
+              id="terms"
+              type="checkbox"
+              checked={isTermsAccepted}
+              onChange={(e) => setIsTermsAccepted(e.target.checked)}
+              className="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 rounded"
+            />
+            <label htmlFor="terms" className="text-sm text-gray-600">
+              I accept the{' '}
+              <Link href="/policies" className="text-purple-600 hover:underline">
+                Terms and Conditions
               </Link>
-            </div>
+            </label>
           </div>
 
           <div>
@@ -222,24 +228,52 @@ export default function SignUp() {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               type="submit"
-              disabled={isLoading}
+              disabled={isLoading || !isTermsAccepted}
               className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 disabled:bg-purple-300 disabled:cursor-not-allowed transition-colors duration-200"
             >
               {isLoading ? (
                 <span className="flex items-center">
-                  <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  <svg
+                    className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    ></circle>
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8v4a4 4 0 000 8V4a8 8 0 010-8z"
+                    ></path>
                   </svg>
-                  Creating account...
+                  Signing Up...
                 </span>
               ) : (
-                'Create Account'
+                'Sign Up'
               )}
             </motion.button>
           </div>
         </motion.form>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5 }}
+          className="mt-4 text-sm text-center text-gray-600"
+        >
+          Already have an account?{' '}
+          <Link href="/auth/login">
+            <a className="text-purple-600 hover:underline">Log In</a>
+          </Link>
+        </motion.div>
       </motion.div>
     </div>
   );
-} 
+}
