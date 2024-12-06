@@ -38,7 +38,24 @@ const linkHoverStyle: CSSProperties = {
   textDecoration: 'underline',
 };
 
+const buttonStyle: CSSProperties = {
+  display: 'block',
+  margin: '20px auto',
+  padding: '10px 20px',
+  backgroundColor: '#4b0082',
+  color: '#fff',
+  border: 'none',
+  borderRadius: '5px',
+  cursor: 'pointer',
+  fontSize: '16px',
+  textAlign: 'center',
+};
+
 const Policies: React.FC = () => {
+  const handleBackButtonClick = () => {
+    window.location.href = '/auth/signup';
+  };
+
   return (
     <div style={containerStyle}>
       <h1 style={headingStyle}>Policies</h1>
@@ -79,6 +96,11 @@ const Policies: React.FC = () => {
           <strong>Phone:</strong> <a href="tel:+919033195151" style={linkStyle}>+91 90331 95151</a>
         </p>
       </section>
+
+      {/* Back button */}
+      <button onClick={handleBackButtonClick} style={buttonStyle}>
+        Back to Sign Up
+      </button>
     </div>
   );
 };
