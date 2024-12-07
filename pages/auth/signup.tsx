@@ -9,6 +9,7 @@ export default function SignUp() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [isChecked, setIsChecked] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     username: '',
     email: '',
@@ -28,6 +29,10 @@ export default function SignUp() {
     setIsChecked((prev) => !prev);
   };
 
+  const togglePasswordVisibility = () => {
+    setShowPassword((prev) => !prev);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
@@ -35,6 +40,18 @@ export default function SignUp() {
 
     if (formData.password !== formData.confirmPassword) {
       setError('Passwords do not match');
+      setIsLoading(false);
+      return;
+    }
+
+    if (!/^[\w-_.]+@[\w-]+\.[a-z]{2,3}$/.test(formData.email)) {
+      setError('Invalid email format');
+      setIsLoading(false);
+      return;
+    }
+
+    if (!/^\+?\d{10,15}$/.test(formData.phone)) {
+      setError('Invalid phone number format');
       setIsLoading(false);
       return;
     }
@@ -105,6 +122,8 @@ export default function SignUp() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             className="bg-red-50 border-l-4 border-red-400 p-4 rounded"
+            role="alert"
+            aria-live="assertive"
           >
             <p className="text-red-700">{error}</p>
           </motion.div>
@@ -182,13 +201,21 @@ export default function SignUp() {
               <input
                 id="password"
                 name="password"
-                type="password"
+                type={showPassword ? 'text' : 'password'}
                 required
                 value={formData.password}
                 onChange={handleChange}
                 className="appearance-none rounded-lg relative block w-full pl-10 px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-purple-500 focus:border-purple-500"
                 placeholder="Password"
               />
+              <button
+                type="button"
+                onClick={togglePasswordVisibility}
+                className="absolute top-3 right-3 text-gray-400"
+                aria-label={showPassword ? 'Hide password' : 'Show password'}
+              >
+                {showPassword ? '🙈' : '👁️'}
+              </button>
             </div>
 
             {/* Confirm Password */}
@@ -200,7 +227,7 @@ export default function SignUp() {
               <input
                 id="confirmPassword"
                 name="confirmPassword"
-                type="password"
+                type={showPassword ? 'text' : 'password'}
                 required
                 value={formData.confirmPassword}
                 onChange={handleChange}
@@ -211,61 +238,34 @@ export default function SignUp() {
           </div>
 
           {/* Terms and Conditions */}
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center">
             <input
-              id="terms"
-              name="terms"
               type="checkbox"
+              id="terms"
               checked={isChecked}
               onChange={handleCheckboxChange}
-              className="h-4 w-4 text-purple-600 border-gray-300 rounded focus:ring-purple-500"
+              className="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 rounded"
             />
-            <label htmlFor="terms" className="text-sm text-gray-600">
-              I agree to the{' '}
-              <Link href="/policies" className="text-purple-600 hover:underline">
-                Terms and Conditions
-              </Link>
+            <label htmlFor="terms" className="ml-2 block text-sm text-gray-900">
+              I agree to the <Link href="/policies" className="text-purple-600">Terms of Service</Link> and <Link href="/policies" className="text-purple-600">Privacy Policy</Link>
             </label>
           </div>
 
-          <div>
-            <motion.button
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              type="submit"
-              disabled={!isChecked || isLoading}
-              className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 disabled:bg-purple-300 disabled:cursor-not-allowed transition-colors duration-200"
-            >
-              {isLoading ? (
-                <span className="flex items-center">
-                  <svg
-                    className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                  >
-                    <circle
-                      className="opacity-25"
-                      cx="12"
-                      cy="12"
-                      r="10"
-                      stroke="currentColor"
-                      strokeWidth="4"
-                    ></circle>
-                    <path
-                      className="opacity-75"
-                      fill="currentColor"
-                      d="M4 12a8 8 0 018-8v8H4z"
-                    ></path>
-                  </svg>
-                  Signing Up...
-                </span>
-              ) : (
-                'Create Account'
-              )}
-            </motion.button>
-          </div>
+          {/* Submit Button */}
+          <button
+            type="submit"
+            disabled={isLoading || !isChecked}
+            className="w-full bg-purple-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 disabled:opacity-50"
+          >
+            {isLoading ? 'Signing Up...' : 'Sign Up'}
+          </button>
         </motion.form>
+
+        <div className="mt-6 text-center">
+          <p className="text-sm">
+            Already have an account? <Link href="/auth/login" className="font-medium text-purple-600 hover:text-purple-500">Sign in</Link>
+          </p>
+        </div>
       </motion.div>
     </div>
   );
