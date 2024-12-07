@@ -20,14 +20,12 @@ export default function SignUp() {
     password: '',
     confirmPassword: '',
     phone: '',
-    acceptTerms: false,
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
     setFormData(prev => ({
       ...prev,
-      [e.target.name]: value
+      [e.target.name]: e.target.value
     }));
   };
 
@@ -35,12 +33,6 @@ export default function SignUp() {
     e.preventDefault();
     setError('');
     setIsLoading(true);
-
-    if (!formData.acceptTerms) {
-      setError('You must accept the Terms and Conditions to create an account');
-      setIsLoading(false);
-      return;
-    }
 
     if (formData.password !== formData.confirmPassword) {
       setError('Passwords do not match');
@@ -214,44 +206,6 @@ export default function SignUp() {
             </div>
           </div>
 
-          <div className="mt-4 mb-6">
-            <div className="flex items-start">
-              <div className="flex items-center h-5">
-                <input
-                  id="acceptTerms"
-                  name="acceptTerms"
-                  type="checkbox"
-                  checked={formData.acceptTerms}
-                  onChange={handleChange}
-                  className="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 rounded cursor-pointer"
-                />
-              </div>
-              <div className="ml-3 text-sm">
-                <label htmlFor="acceptTerms" className="text-gray-500">
-                  I accept the{' '}
-                  <Link
-                    href="/policies"
-                    target="_blank"
-                    className="font-medium text-purple-600 hover:text-purple-500"
-                  >
-                    Terms and Conditions
-                  </Link>
-                  {' '}and{' '}
-                  <Link
-                    href="/policies#privacy-policy"
-                    target="_blank"
-                    className="font-medium text-purple-600 hover:text-purple-500"
-                  >
-                    Privacy Policy
-                  </Link>
-                </label>
-              </div>
-            </div>
-            {error && error.includes('Terms and Conditions') && (
-              <p className="mt-2 text-sm text-red-600">{error}</p>
-            )}
-          </div>
-
           <div className="flex items-center justify-between">
             <div className="text-sm">
               <Link
@@ -288,4 +242,4 @@ export default function SignUp() {
       </motion.div>
     </div>
   );
-} 
+}
