@@ -1,3 +1,9 @@
+/**
+ * @copyright (c) 2024 - Present
+ * @author github.com/KunalG932
+ * @license MIT
+ */
+
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
@@ -8,7 +14,6 @@ export default function SignUp() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
-  const [isTermsAccepted, setIsTermsAccepted] = useState(false); // New state for terms
   const [formData, setFormData] = useState({
     username: '',
     email: '',
@@ -114,7 +119,6 @@ export default function SignUp() {
           onSubmit={handleSubmit}
         >
           <div className="rounded-md shadow-sm space-y-4">
-            {/* Input Fields */}
             <div className="relative">
               <label htmlFor="username" className="sr-only">
                 Username
@@ -131,42 +135,111 @@ export default function SignUp() {
                 placeholder="Username"
               />
             </div>
-            {/* Add other input fields here */}
+
+            <div className="relative">
+              <label htmlFor="email" className="sr-only">
+                Email address
+              </label>
+              <FaEnvelope className="absolute top-3 left-3 text-gray-400" />
+              <input
+                id="email"
+                name="email"
+                type="email"
+                autoComplete="email"
+                required
+                value={formData.email}
+                onChange={handleChange}
+                className="appearance-none rounded-lg relative block w-full pl-10 px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-purple-500 focus:border-purple-500"
+                placeholder="Email address"
+              />
+            </div>
+
+            <div className="relative">
+              <label htmlFor="phone" className="sr-only">
+                Phone number
+              </label>
+              <FaPhone className="absolute top-3 left-3 text-gray-400" />
+              <input
+                id="phone"
+                name="phone"
+                type="tel"
+                required
+                value={formData.phone}
+                onChange={handleChange}
+                className="appearance-none rounded-lg relative block w-full pl-10 px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-purple-500 focus:border-purple-500"
+                placeholder="Phone number"
+              />
+            </div>
+
+            <div className="relative">
+              <label htmlFor="password" className="sr-only">
+                Password
+              </label>
+              <FaLock className="absolute top-3 left-3 text-gray-400" />
+              <input
+                id="password"
+                name="password"
+                type="password"
+                required
+                value={formData.password}
+                onChange={handleChange}
+                className="appearance-none rounded-lg relative block w-full pl-10 px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-purple-500 focus:border-purple-500"
+                placeholder="Password"
+              />
+            </div>
+
+            <div className="relative">
+              <label htmlFor="confirmPassword" className="sr-only">
+                Confirm Password
+              </label>
+              <FaLock className="absolute top-3 left-3 text-gray-400" />
+              <input
+                id="confirmPassword"
+                name="confirmPassword"
+                type="password"
+                required
+                value={formData.confirmPassword}
+                onChange={handleChange}
+                className="appearance-none rounded-lg relative block w-full pl-10 px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-purple-500 focus:border-purple-500"
+                placeholder="Confirm Password"
+              />
+            </div>
           </div>
 
-          {/* Terms and Conditions */}
-          <div className="flex items-center">
-            <input
-              type="checkbox"
-              id="terms"
-              checked={isTermsAccepted}
-              onChange={() => setIsTermsAccepted(prev => !prev)}
-              className="h-5 w-5 text-purple-600 border-gray-300 rounded focus:ring-purple-500"
-            />
-            <label htmlFor="terms" className="ml-2 block text-sm text-gray-700">
-              I agree to the{' '}
-              <Link href="/policies">
-                <a className="text-purple-600 underline">Terms and Conditions</a>
+          <div className="flex items-center justify-between">
+            <div className="text-sm">
+              <Link
+                href="/auth/login"
+                className="font-medium text-purple-600 hover:text-purple-500"
+              >
+                Already have an account? Sign in
               </Link>
-            </label>
+            </div>
           </div>
 
-          {/* Submit Button */}
           <div>
             <motion.button
-              whileHover={{ scale: isTermsAccepted ? 1.02 : 1 }}
-              whileTap={{ scale: isTermsAccepted ? 0.98 : 1 }}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
               type="submit"
-              disabled={!isTermsAccepted || isLoading}
-              className={`group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-md text-white ${
-                isTermsAccepted ? 'bg-purple-600 hover:bg-purple-700' : 'bg-gray-400 cursor-not-allowed'
-              } focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition-colors duration-200`}
+              disabled={isLoading}
+              className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 disabled:bg-purple-300 disabled:cursor-not-allowed transition-colors duration-200"
             >
-              {isLoading ? 'Creating account...' : 'Create Account'}
+              {isLoading ? (
+                <span className="flex items-center">
+                  <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  Creating account...
+                </span>
+              ) : (
+                'Create Account'
+              )}
             </motion.button>
           </div>
         </motion.form>
       </motion.div>
     </div>
   );
-}
+} 
