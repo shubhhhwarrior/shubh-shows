@@ -192,50 +192,57 @@ export default function SignUp() {
               />
             </div>
 
-            {/* Password */}
-            <div className="relative">
-              <label htmlFor="password" className="sr-only">
-                Password
-              </label>
-              <FaLock className="absolute top-3 left-3 text-gray-400" />
-              <input
-                id="password"
-                name="password"
-                type={showPassword ? 'text' : 'password'}
-                required
-                value={formData.password}
-                onChange={handleChange}
-                className="appearance-none rounded-lg relative block w-full pl-10 px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-purple-500 focus:border-purple-500"
-                placeholder="Password"
-              />
-              <button
-                type="button"
-                onClick={togglePasswordVisibility}
-                className="absolute top-3 right-3 text-gray-400"
-                aria-label={showPassword ? 'Hide password' : 'Show password'}
-              >
-                {showPassword ? '🙈' : '👁️'}
-              </button>
-            </div>
+{/* Password */}
+<div className="relative">
+  <label htmlFor="password" className="sr-only">
+    Password
+  </label>
+  <FaLock className="absolute top-3 left-3 text-gray-400" />
+  <input
+    id="password"
+    name="password"
+    type={showPassword ? 'text' : 'password'}
+    required
+    value={formData.password}
+    onChange={handleChange}
+    className="appearance-none rounded-lg relative block w-full pl-10 px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-purple-500 focus:border-purple-500"
+    placeholder="Password"
+  />
+  <button
+    type="button"
+    onClick={togglePasswordVisibility}
+    className="absolute top-3 right-3 text-gray-400"
+    aria-label={showPassword ? 'Hide password' : 'Show password'}
+  >
+    {showPassword ? '🙈' : '👁️'}
+  </button>
+</div>
 
-            {/* Confirm Password */}
-            <div className="relative">
-              <label htmlFor="confirmPassword" className="sr-only">
-                Confirm Password
-              </label>
-              <FaLock className="absolute top-3 left-3 text-gray-400" />
-              <input
-                id="confirmPassword"
-                name="confirmPassword"
-                type={showPassword ? 'text' : 'password'}
-                required
-                value={formData.confirmPassword}
-                onChange={handleChange}
-                className="appearance-none rounded-lg relative block w-full pl-10 px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-purple-500 focus:border-purple-500"
-                placeholder="Confirm Password"
-              />
-            </div>
-          </div>
+{/* Confirm Password */}
+<div className="relative">
+  <label htmlFor="confirmPassword" className="sr-only">
+    Confirm Password
+  </label>
+  <FaLock className="absolute top-3 left-3 text-gray-400" />
+  <input
+    id="confirmPassword"
+    name="confirmPassword"
+    type={showConfirmPassword ? 'text' : 'password'}
+    required
+    value={formData.confirmPassword}
+    onChange={handleChange}
+    className="appearance-none rounded-lg relative block w-full pl-10 px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-purple-500 focus:border-purple-500"
+    placeholder="Confirm Password"
+  />
+  <button
+    type="button"
+    onClick={toggleConfirmPasswordVisibility}
+    className="absolute top-3 right-3 text-gray-400"
+    aria-label={showConfirmPassword ? 'Hide confirm password' : 'Show confirm password'}
+  >
+    {showConfirmPassword ? '🙈' : '👁️'}
+  </button>
+</div>
 
           {/* Terms and Conditions */}
           <div className="flex items-center">
