@@ -1,9 +1,3 @@
-/**
- * @copyright (c) 2024 - Present
- * @author github.com/KunalG932
- * @license MIT
- */
-
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
@@ -14,6 +8,7 @@ export default function SignUp() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  const [isChecked, setIsChecked] = useState(false);
   const [formData, setFormData] = useState({
     username: '',
     email: '',
@@ -23,10 +18,14 @@ export default function SignUp() {
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     }));
+  };
+
+  const handleCheckboxChange = () => {
+    setIsChecked((prev) => !prev);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -119,6 +118,7 @@ export default function SignUp() {
           onSubmit={handleSubmit}
         >
           <div className="rounded-md shadow-sm space-y-4">
+            {/* Username */}
             <div className="relative">
               <label htmlFor="username" className="sr-only">
                 Username
@@ -136,6 +136,7 @@ export default function SignUp() {
               />
             </div>
 
+            {/* Email */}
             <div className="relative">
               <label htmlFor="email" className="sr-only">
                 Email address
@@ -154,6 +155,7 @@ export default function SignUp() {
               />
             </div>
 
+            {/* Phone */}
             <div className="relative">
               <label htmlFor="phone" className="sr-only">
                 Phone number
@@ -171,6 +173,7 @@ export default function SignUp() {
               />
             </div>
 
+            {/* Password */}
             <div className="relative">
               <label htmlFor="password" className="sr-only">
                 Password
@@ -188,6 +191,7 @@ export default function SignUp() {
               />
             </div>
 
+            {/* Confirm Password */}
             <div className="relative">
               <label htmlFor="confirmPassword" className="sr-only">
                 Confirm Password
@@ -206,15 +210,22 @@ export default function SignUp() {
             </div>
           </div>
 
-          <div className="flex items-center justify-between">
-            <div className="text-sm">
-              <Link
-                href="/auth/login"
-                className="font-medium text-purple-600 hover:text-purple-500"
-              >
-                Already have an account? Sign in
+          {/* Terms and Conditions */}
+          <div className="flex items-center space-x-2">
+            <input
+              id="terms"
+              name="terms"
+              type="checkbox"
+              checked={isChecked}
+              onChange={handleCheckboxChange}
+              className="h-4 w-4 text-purple-600 border-gray-300 rounded focus:ring-purple-500"
+            />
+            <label htmlFor="terms" className="text-sm text-gray-600">
+              I agree to the{' '}
+              <Link href="/policies" className="text-purple-600 hover:underline">
+                Terms and Conditions
               </Link>
-            </div>
+            </label>
           </div>
 
           <div>
@@ -222,16 +233,32 @@ export default function SignUp() {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               type="submit"
-              disabled={isLoading}
+              disabled={!isChecked || isLoading}
               className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 disabled:bg-purple-300 disabled:cursor-not-allowed transition-colors duration-200"
             >
               {isLoading ? (
                 <span className="flex items-center">
-                  <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  <svg
+                    className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    ></circle>
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8v8H4z"
+                    ></path>
                   </svg>
-                  Creating account...
+                  Signing Up...
                 </span>
               ) : (
                 'Create Account'
@@ -242,4 +269,4 @@ export default function SignUp() {
       </motion.div>
     </div>
   );
-} 
+}
