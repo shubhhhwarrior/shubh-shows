@@ -10,6 +10,7 @@ export default function SignUp() {
   const [error, setError] = useState('');
   const [isChecked, setIsChecked] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false); // New state for confirm password visibility
   const [formData, setFormData] = useState({
     username: '',
     email: '',
@@ -31,6 +32,10 @@ export default function SignUp() {
 
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
+  };
+
+  const toggleConfirmPasswordVisibility = () => {
+    setShowConfirmPassword((prev) => !prev);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -227,45 +232,49 @@ export default function SignUp() {
               <input
                 id="confirmPassword"
                 name="confirmPassword"
-                type={showPassword ? 'text' : 'password'}
+                type={showConfirmPassword ? 'text' : 'password'} // Conditional type
                 required
                 value={formData.confirmPassword}
                 onChange={handleChange}
                 className="appearance-none rounded-lg relative block w-full pl-10 px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-purple-500 focus:border-purple-500"
                 placeholder="Confirm Password"
               />
+              <button
+                type="button"
+                onClick={toggleConfirmPasswordVisibility}
+                className="absolute top-3 right-3 text-gray-400"
+                aria-label={showConfirmPassword ? 'Hide confirm password' : 'Show confirm password'}
+              >
+                {showConfirmPassword ? '🙈' : '👁️'}
+              </button>
             </div>
           </div>
 
-          {/* Terms and Conditions */}
-          <div className="flex items-center">
-            <input
-              type="checkbox"
-              id="terms"
-              checked={isChecked}
-              onChange={handleCheckboxChange}
-              className="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 rounded"
-            />
-            <label htmlFor="terms" className="ml-2 block text-sm text-gray-900">
-              I agree to the <Link href="/policies" className="text-purple-600">Terms of Service</Link> and <Link href="/policies" className="text-purple-600">Privacy Policy</Link>
-            </label>
-          </div>
-
-          {/* Submit Button */}
+          {/* Submit button */}
           <button
             type="submit"
             disabled={isLoading || !isChecked}
-            className="w-full bg-purple-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 disabled:opacity-50"
+            className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-lg shadow-sm text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
           >
             {isLoading ? 'Signing Up...' : 'Sign Up'}
           </button>
-        </motion.form>
 
-        <div className="mt-6 text-center">
-          <p className="text-sm">
-            Already have an account? <Link href="/auth/login" className="font-medium text-purple-600 hover:text-purple-500">Sign in</Link>
-          </p>
-        </div>
+          {/* Terms of Service */}
+          <div className="flex items-center justify-between">
+            <label className="flex items-center">
+              <input
+                type="checkbox"
+                className="form-checkbox"
+                checked={isChecked}
+                onChange={handleCheckboxChange}
+              />
+              <span className="ml-2 text-sm text-gray-600">I agree to the Terms of Service</span>
+            </label>
+            <Link href="/terms" className="text-sm text-purple-600 hover:text-purple-500">
+              Read Terms
+            </Link>
+          </div>
+        </motion.form>
       </motion.div>
     </div>
   );
