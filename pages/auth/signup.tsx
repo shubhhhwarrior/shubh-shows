@@ -234,6 +234,14 @@ export default function SignUp() {
                 className="appearance-none rounded-lg relative block w-full pl-10 px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-purple-500 focus:border-purple-500"
                 placeholder="Confirm Password"
               />
+              <button
+                type="button"
+                onClick={togglePasswordVisibility}
+                className="absolute top-3 right-3 text-gray-400"
+                aria-label={showPassword ? 'Hide password' : 'Show password'}
+              >
+                {showPassword ? '🙈' : '👁️'}
+              </button>
             </div>
           </div>
 
@@ -244,28 +252,35 @@ export default function SignUp() {
               id="terms"
               checked={isChecked}
               onChange={handleCheckboxChange}
-              className="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 rounded"
+              className="h-4 w-4 text-purple-500 border-gray-300 rounded"
+              required
             />
-            <label htmlFor="terms" className="ml-2 block text-sm text-gray-900">
-              I agree to the <Link href="/policies" className="text-purple-600">Terms of Service</Link> and <Link href="/policies" className="text-purple-600">Privacy Policy</Link>
+            <label htmlFor="terms" className="ml-2 text-sm text-gray-600">
+              I agree to the{' '}
+              <Link href="/policies" className="text-purple-500 hover:text-purple-700">
+                Terms and Conditions
+              </Link>
             </label>
           </div>
 
           {/* Submit Button */}
-          <button
-            type="submit"
-            disabled={isLoading || !isChecked}
-            className="w-full bg-purple-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 disabled:opacity-50"
-          >
-            {isLoading ? 'Signing Up...' : 'Sign Up'}
-          </button>
-        </motion.form>
+          <div>
+            <button
+              type="submit"
+              disabled={isLoading || !isChecked}
+              className="w-full bg-purple-600 text-white font-semibold py-2 px-4 rounded-lg shadow-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500"
+            >
+              {isLoading ? 'Signing Up...' : 'Sign Up'}
+            </button>
+          </div>
 
-        <div className="mt-6 text-center">
-          <p className="text-sm">
-            Already have an account? <Link href="/auth/login" className="font-medium text-purple-600 hover:text-purple-500">Sign in</Link>
+          <p className="mt-2 text-center text-sm text-gray-600">
+            Already have an account?{' '}
+            <Link href="/auth/login" className="font-medium text-purple-600 hover:text-purple-700">
+              Login here
+            </Link>
           </p>
-        </div>
+        </motion.form>
       </motion.div>
     </div>
   );
