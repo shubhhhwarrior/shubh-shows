@@ -10,6 +10,7 @@ export default function SignUp() {
   const [error, setError] = useState('');
   const [isChecked, setIsChecked] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [formData, setFormData] = useState({
     username: '',
     email: '',
@@ -31,6 +32,10 @@ export default function SignUp() {
 
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
+  };
+
+  const toggleConfirmPasswordVisibility = () => {
+    setShowConfirmPassword((prev) => !prev);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -192,81 +197,88 @@ export default function SignUp() {
               />
             </div>
 
-{/* Password */}
-<div className="relative">
-  <label htmlFor="password" className="sr-only">
-    Password
-  </label>
-  <FaLock className="absolute top-3 left-3 text-gray-400" />
-  <input
-    id="password"
-    name="password"
-    type={showPassword ? 'text' : 'password'}
-    required
-    value={formData.password}
-    onChange={handleChange}
-    className="appearance-none rounded-lg relative block w-full pl-10 px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-purple-500 focus:border-purple-500"
-    placeholder="Password"
-  />
-  <button
-    type="button"
-    onClick={togglePasswordVisibility}
-    className="absolute top-3 right-3 text-gray-400"
-    aria-label={showPassword ? 'Hide password' : 'Show password'}
-  >
-    {showPassword ? '🙈' : '👁️'}
-  </button>
-</div>
+            {/* Password */}
+            <div className="relative">
+              <label htmlFor="password" className="sr-only">
+                Password
+              </label>
+              <FaLock className="absolute top-3 left-3 text-gray-400" />
+              <input
+                id="password"
+                name="password"
+                type={showPassword ? 'text' : 'password'}
+                required
+                value={formData.password}
+                onChange={handleChange}
+                className="appearance-none rounded-lg relative block w-full pl-10 px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-purple-500 focus:border-purple-500"
+                placeholder="Password"
+              />
+              <button
+                type="button"
+                onClick={togglePasswordVisibility}
+                className="absolute top-3 right-3 text-gray-400"
+                aria-label={showPassword ? 'Hide password' : 'Show password'}
+              >
+                {showPassword ? '🙈' : '👁️'}
+              </button>
+            </div>
 
-{/* Password */}
-<div className="relative">
-  <label htmlFor="password" className="sr-only">Password</label>
-  <FaLock className="absolute top-3 left-3 text-gray-400" />
-  <input id="password" name="password" type={showPassword ? 'text' : 'password'} required value={formData.password} onChange={handleChange} className="appearance-none rounded-lg relative block w-full pl-10 px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-purple-500 focus:border-purple-500" placeholder="Password" />
-  <button type="button" onClick={togglePasswordVisibility} className="absolute top-3 right-3 text-gray-400" aria-label={showPassword ? 'Hide password' : 'Show password'}>
-    {showPassword ? '🙈' : '👁️'}
-  </button>
-</div>
-
-{/* Confirm Password */}
-<div className="relative">
-  <label htmlFor="confirmPassword" className="sr-only">Confirm Password</label>
-  <FaLock className="absolute top-3 left-3 text-gray-400" />
-  <input id="confirmPassword" name="confirmPassword" type={showConfirmPassword ? 'text' : 'password'} required value={formData.confirmPassword} onChange={handleChange} className="appearance-none rounded-lg relative block w-full pl-10 px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-purple-500 focus:border-purple-500" placeholder="Confirm Password" />
-  <button type="button" onClick={toggleConfirmPasswordVisibility} className="absolute top-3 right-3 text-gray-400" aria-label={showConfirmPassword ? 'Hide confirm password' : 'Show confirm password'}>
-    {showConfirmPassword ? '🙈' : '👁️'}
-  </button>
-</div>
+            {/* Confirm Password */}
+            <div className="relative">
+              <label htmlFor="confirmPassword" className="sr-only">
+                Confirm Password
+              </label>
+              <FaLock className="absolute top-3 left-3 text-gray-400" />
+              <input
+                id="confirmPassword"
+                name="confirmPassword"
+                type={showConfirmPassword ? 'text' : 'password'}
+                required
+                value={formData.confirmPassword}
+                onChange={handleChange}
+                className="appearance-none rounded-lg relative block w-full pl-10 px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-purple-500 focus:border-purple-500"
+                placeholder="Confirm Password"
+              />
+              <button
+                type="button"
+                onClick={toggleConfirmPasswordVisibility}
+                className="absolute top-3 right-3 text-gray-400"
+                aria-label={showConfirmPassword ? 'Hide confirm password' : 'Show confirm password'}
+              >
+                {showConfirmPassword ? '🙈' : '👁️'}
+              </button>
+            </div>
+          </div>
 
           {/* Terms and Conditions */}
           <div className="flex items-center">
             <input
-              type="checkbox"
               id="terms"
+              name="terms"
+              type="checkbox"
+              required
               checked={isChecked}
               onChange={handleCheckboxChange}
-              className="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 rounded"
+              className="h-4 w-4 text-purple-600 border-gray-300 rounded"
             />
-            <label htmlFor="terms" className="ml-2 block text-sm text-gray-900">
-              I agree to the <Link href="/policies" className="text-purple-600">Terms of Service</Link> and <Link href="/policies" className="text-purple-600">Privacy Policy</Link>
+            <label htmlFor="terms" className="ml-2 text-sm text-gray-600">
+              I agree to the <Link href="/terms" className="text-purple-600 font-medium hover:underline">Terms of Service</Link> and <Link href="/privacy" className="text-purple-600 font-medium hover:underline">Privacy Policy</Link>
             </label>
           </div>
 
           {/* Submit Button */}
-          <button
-            type="submit"
-            disabled={isLoading || !isChecked}
-            className="w-full bg-purple-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 disabled:opacity-50"
-          >
-            {isLoading ? 'Signing Up...' : 'Sign Up'}
-          </button>
+          <div>
+            <button
+              type="submit"
+              disabled={!isChecked || isLoading}
+              className={`w-full py-2 px-4 text-white font-semibold rounded-lg shadow ${
+                isLoading ? 'bg-gray-500 cursor-not-allowed' : 'bg-purple-600 hover:bg-purple-700'
+              }`}
+            >
+              {isLoading ? 'Signing Up...' : 'Sign Up'}
+            </button>
+          </div>
         </motion.form>
-
-        <div className="mt-6 text-center">
-          <p className="text-sm">
-            Already have an account? <Link href="/auth/login" className="font-medium text-purple-600 hover:text-purple-500">Sign in</Link>
-          </p>
-        </div>
       </motion.div>
     </div>
   );
