@@ -2,15 +2,14 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { FaUser, FaEnvelope, FaLock, FaPhone } from 'react-icons/fa';
-import { FaEnvelope, FaLock, FaEye, FaEyeSlash } from 'react-icons/fa';
-
+import { FaUser, FaEnvelope, FaLock, FaPhone, FaEye, FaEyeSlash } from 'react-icons/fa';
 
 export default function SignUp() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [isChecked, setIsChecked] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     username: '',
     email: '',
@@ -31,7 +30,7 @@ export default function SignUp() {
   };
 
   const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
+    setShowPassword((prev) => !prev);
   };
   
   const handleSubmit = async (e: React.FormEvent) => {
@@ -188,7 +187,7 @@ export default function SignUp() {
               <input
                 id="password"
                 name="password"
-                type="password"
+                type={showPassword ? "text" : "password"}
                 required
                 value={formData.password}
                 onChange={handleChange}
@@ -213,7 +212,7 @@ export default function SignUp() {
               <input
                 id="confirmPassword"
                 name="confirmPassword"
-                type="password"
+                type={showPassword ? "text" : "password"}
                 required
                 value={formData.confirmPassword}
                 onChange={handleChange}
